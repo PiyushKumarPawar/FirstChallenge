@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video with Play Button</title>
+  <!-- Google Font for Cursive Handwriting -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Bar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet"> <!-- Stylish Font -->
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+        <span class="soniya-text">Sony Pictures</span> <!-- Text changed to Soniyoo -->
+    </div>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- Video Container -->
+<div class="video-container">
+  <div class="carousel-slide">
+    <video #videoPlayer id="my-video" class="carousel-video video-js vjs-default-skin" controls preload="auto" width="800" height="450">
+      <source [src]="videoList[currentIndex].src" type="video/mp4">
+      <p class="vjs-no-js">To view this video, please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video.</p>
+    </video>
+    <!-- Text Overlay -->
+    <div class="carousel-caption">
+      <h5>{{ videoList[currentIndex].text }}</h5>
+      <p class="description">{{ videoList[currentIndex].description }}</p>
+    </div>
+  </div>
+</div>
+
+  <div class="carousel-controls">
+    <button (click)="prev()" class="carousel-btn prev-btn">
+      <i class="fa fa-arrow-left"></i> Prev
+    </button>
+    <button (click)="next()" class="carousel-btn next-btn">
+      Next <i class="fa fa-arrow-right"></i>
+    </button>
+  </div>
+
+  <!-- Cards Section -->
+   <br><br><br>
+   <div>Some tags before</div>
+  <owl-carousel-o [options]="customOptions">
+    <ng-template carouselSlide><a routerLink="src\app\video-player"><img src="image1.jfif" alt="Card Image"></a></ng-template>  
+    <ng-template carouselSlide><a routerLink="src\app\video-player"><img src="thumbnail1.jfif" alt="Card Image"></a></ng-template>  
+    <ng-template carouselSlide><a routerLink="src\app\video-player"><img src="thumbnail2.jfif" alt="Card Image"></a></ng-template>  
+  </owl-carousel-o>
+  <div>Some tags after</div>
+   
+  <div class="cards-container" id="cards-container">
+    <!-- Cards will be dynamically populated here -->
+    <div class="card">
+      <img src="image1.jfif" alt="Card Image">
+      <h3>Title 1</h3>
+      <p>Description for Card 1.</p>
+    </div>
+    <div class="card">
+      <img src="thumbnail1.jfif" alt="Card Image">
+      <h3>Title 2</h3>
+      <p>Description for Card 2.</p>
+    </div>
+    <div class="card">
+      <img src="thumbnail2.jfif" alt="Card Image">
+      <h3>Title 3</h3>
+      <p>Description for Card 3.</p>
+    </div>
+    <div class="card">
+      <img src="thumbnail3.jfif" alt="Card Image">
+      <h3>Title 4</h3>
+      <p>Description for Card 4.</p>
+    </div>
+    <div class="card">
+      <img src="thumbnail4.jfif" alt="Card Image">
+      <h3>Title 5</h3>
+      <p>Description for Card 5.</p>
+    </div>
+    <div class="card">
+      <img src="thumbnail5.jfif" alt="Card Image">
+      <h3>Title 6</h3>
+      <p>Description for Card 6.</p>
+    </div>
+    <div class="card">
+      <img src="thumbnail6.jfif" alt="Card Image">
+      <h3>Title 7</h3>
+      <p>Description for Card 7.</p>
+    </div>
+    <div class="card">
+      <img src="thumbnail7.jfif" alt="Card Image">
+      <h3>Title 8</h3>
+      <p>Description for Card 8.</p>
+    </div>
+    <div class="card">
+      <img src="image1.jfif" alt="Card Image">
+      <h3>Title 9</h3>
+      <p>Description for Card 9.</p>
+    </div>
+    <div class="card">
+      <img src="thumbnail6.jfif" alt="Card Image">
+      <h3>Title 7</h3>
+      <p>Description for Card 7.</p>
+    </div>
+    <div class="card">
+      <img src="thumbnail7.jfif" alt="Card Image">
+      <h3>Title 8</h3>
+      <p>Description for Card 8.</p>
+    </div>
+    <div class="card">
+      <img src="image1.jfif" alt="Card Image">
+      <h3>Title 9</h3>
+      <p>Description for Card 9.</p>
+    </div>
+  </div>
+
+
+  <script src="https://vjs.zencdn.net/7.10.2/video.js"></script>
+  <script>
+    // Initialize Video.js player
+    var player = videojs('my-video', {
+      controls: false,
+      preload: 'auto',
+      width: 800,
+      height: 450
+    });
+
+    // Pagination Variables
+    var currentPage = 1;
+    var cardsPerPage = 10;  // Display 10 cards per page
+    var cards = document.querySelectorAll('.card');
+    var totalCards = cards.length;
+    var totalPages = Math.ceil(totalCards / cardsPerPage);
+
+    // Function to show only the cards for the current page
+    function showCardsForPage(page) {
+      var start = (page - 1) * cardsPerPage;
+      var end = start + cardsPerPage;
+
+      // Hide all cards
+      cards.forEach(card => card.style.display = 'none');
+
+      // Show the cards for the current page
+      for (var i = start; i < end; i++) {
+        if (cards[i]) {
+          cards[i].style.display = 'block';
+        }
+      }
+
+      // Update page number
+      document.getElementById('pageNumber').innerText = 'Page ' + page;
+    }
+
+    // Function to change the page
+    function changePage(direction) {
+      currentPage += direction;
+      if (currentPage < 1) currentPage = 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      showCardsForPage(currentPage);
+    }
+
+    // Initialize the first page
+    showCardsForPage(currentPage);
+  </script>
+
+</body>
+</html>
